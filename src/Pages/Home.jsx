@@ -4,7 +4,7 @@ import { useContext } from "react";
 import {useState,useEffect} from "react"
 import {CartContext} from "../Context/CartContext/CartContextProvider"
 import {addToCart} from "../Context/CartContext/action"
-import { Button, Container, Flex, Grid, GridItem, Skeleton, Stack,Box,Image,Text} from "@chakra-ui/react";
+import { Button, Container, Flex, Grid, GridItem, Skeleton, Stack,Box,Image,Text, Alert, AlertIcon, AlertDescription} from "@chakra-ui/react";
 
 const getData = () =>{
 return axios.get("https://fakestoreapi.com/products")
@@ -67,7 +67,35 @@ const Home = () => {
     )
   }
   if(error){
-    return(<Container maxW={{base:"full",md:"container.xl"}}
+
+    return(
+      <Container 
+      width={{
+        base:"full",
+        sm:"full",
+        md:"container.xl",
+        lg:"container.lg"
+       }}
+       centerContent={true}
+      >
+
+        <Alert
+        status="error"
+        py={{base:4,sm:4,md:4,lg:6}}
+        my={{base:24,sm:24,md:28,lg:40}}
+        px={{base:1,sm:1,md:4,lg:6}}
+        >
+          <AlertIcon/>
+          <AlertDescription>
+            Something went wrong.please refresh
+          </AlertDescription>
+        </Alert>
+      </Container>
+    )
+  }
+
+    return(
+    <Container maxW={{base:"full",md:"container.xl"}}
       p={{base:2,lg:0}}>
         <Grid w="full" 
         templateColumns={{
@@ -77,6 +105,7 @@ const Home = () => {
         }}
         gap={4}
         >
+          
 {
   data&&data.map((product)=>(
     <GridItem key={product.id}>
@@ -94,7 +123,7 @@ const Home = () => {
           <GridItem rowSpan={16}>
             <Flex align="center" justify="center">
               <Image boxSize="xs"
-              src={product.Image}
+              src={product.image}
               alt="prod-img"
               w="full"
               h="sm"
@@ -136,7 +165,7 @@ const Home = () => {
                  
     </Container>)
   }
-  return <div>Home</div>;
-};
+  
+
 
 export default Home;
